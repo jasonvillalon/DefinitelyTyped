@@ -94,7 +94,8 @@ declare namespace Bookshelf {
 		static forge<T>(attributes?: any, options?: ModelOptions): T;
 		static where<T>(properties: { [key: string]: any }): T;
 		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
-
+		// Pagination Plugin
+		static fetchPage<T extends Model<any>>(options: any): BlueBird<Collection<T>>;
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
 		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string): Collection<R>;
 		count(column?: string, options?: SyncOptions): BlueBird<number>;
@@ -124,6 +125,9 @@ declare namespace Bookshelf {
 		where(properties: { [key: string]: any }): T;
 		where(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
+		// Pagination Plugin
+		fetchPage<T extends Model<any>>(options: any): BlueBird<Collection<T>>;
+		
 		// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/errors.js
 		// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/model.js#L1280
 		static NotFoundError: createError.Error<Error>;
@@ -258,6 +262,10 @@ declare namespace Bookshelf {
 		through<R extends Model<any>>(interim: typeof Model, throughForeignKey?: string, otherKey?: string): Collection<R>;
 		updatePivot(attributes: any, options?: PivotOptions): BlueBird<number>;
 		withPivot(columns: string[]): Collection<T>;
+
+		// Pagination plugin
+		fetchPage<T extends Model<any>>(options: any): BlueBird<Collection<T>>;
+		pagination: any;
 
 		// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/collection.js#L389
 		static EmptyError: createError.Error<Error>;
